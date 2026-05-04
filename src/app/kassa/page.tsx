@@ -70,7 +70,7 @@ export default function CheckoutPage() {
       .single()
 
     if (orderErr || !order) {
-      setError('Något gick fel. Försök igen.')
+      setError(`Fel: ${orderErr?.message ?? 'okänt fel'} (kod: ${orderErr?.code})`)
       setPlacing(false)
       return
     }
