@@ -68,23 +68,47 @@ export default async function AccountPage() {
                   </div>
                 </div>
                 {order.order_items && order.order_items.length > 0 && (
-                  <div className="px-5 py-3 space-y-3">
-                    {order.order_items.map((item: any) => (
-                      <div key={item.id} className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-stone-100 shrink-0">
-                          {item.product_image ? (
-                            <Image src={item.product_image} alt={item.product_name} width={40} height={40} className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full bg-stone-100" />
-                          )}
+                  <div className="px-5 py-3">
+                    <div className="space-y-3 mb-3">
+                      {order.order_items.map((item: any) => (
+                        <div key={item.id} className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg overflow-hidden bg-stone-100 shrink-0">
+                            {item.product_image ? (
+                              <Image src={item.product_image} alt={item.product_name} width={40} height={40} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full bg-stone-100" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-stone-700 truncate">{item.product_name}</p>
+                            <p className="text-xs text-stone-400">{item.quantity} st</p>
+                          </div>
+                          <p className="text-sm font-semibold text-stone-800 shrink-0">{item.price * item.quantity} kr</p>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-stone-700 truncate">{item.product_name}</p>
-                          <p className="text-xs text-stone-400">{item.quantity} st</p>
-                        </div>
-                        <p className="text-sm font-semibold text-stone-800 shrink-0">{item.price * item.quantity} kr</p>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    <div className="border-t border-stone-100 pt-3 space-y-1.5 text-xs text-stone-500">
+                      {(() => {
+                        const subtotal = order.order_items.reduce((s: number, i: any) => s + i.price * i.quantity, 0)
+                        const shipping = order.total - subtotal
+                        return (
+                          <>
+                            <div className="flex justify-between">
+                              <span>Delsumma</span>
+                              <span>{subtotal} kr</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Frakt</span>
+                              <span>{shipping === 0 ? <span className="text-green-600 font-medium">Gratis</span> : `${shipping} kr`}</span>
+                            </div>
+                            <div className="flex justify-between font-semibold text-stone-800 text-sm pt-1 border-t border-stone-100">
+                              <span>Totalt</span>
+                              <span>{order.total} kr</span>
+                            </div>
+                          </>
+                        )
+                      })()}
+                    </div>
                   </div>
                 )}
               </div>
