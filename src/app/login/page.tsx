@@ -12,7 +12,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const params = useSearchParams()
-  const next = params.get('next') || '/'
+  const next = params.get('next') || '/konto'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

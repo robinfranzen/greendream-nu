@@ -115,7 +115,10 @@ export default function AdminProductsPage() {
       const removed = editing.images.filter(url => !form.images.includes(url))
       for (const url of removed) {
         const path = url.split('/storage/v1/object/public/products/')[1]
-        if (path) await supabase.storage.from('products').remove([decodeURIComponent(path)])
+        if (path) {
+          const { error } = await supabase.storage.from('products').remove([decodeURIComponent(path)])
+          if (error) console.error('Storage delete error:', error, 'path:', path)
+        }
       }
     } else {
       await supabase.from('products').insert(payload)
@@ -123,7 +126,7 @@ export default function AdminProductsPage() {
 
     setSaving(false)
     setShowForm(false)
-    load()
+    await load()
   }
 
   async function remove(id: string) {
