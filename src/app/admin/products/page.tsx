@@ -88,8 +88,13 @@ export default function AdminProductsPage() {
     for (const file of files) await uploadImage(file)
   }
 
-  function removeImage(url: string) {
+  async function removeImage(url: string) {
     setForm(f => ({ ...f, images: f.images.filter(i => i !== url) }))
+    // Extract storage path from the public URL and delete from bucket
+    const path = url.split('/storage/v1/object/public/products/')[1]
+    if (path) {
+      await supabase.storage.from('products').remove([decodeURIComponent(path)])
+    }
   }
 
   async function save(e: React.FormEvent) {
