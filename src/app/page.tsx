@@ -37,15 +37,7 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hidden md:block">
-            <Image
-              src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900"
-              alt="Trädgård"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hidden md:block bg-[#d4e5cf]" />
         </div>
       </section>
 
@@ -95,14 +87,7 @@ export default async function Home() {
               Läs mer <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <div className="relative aspect-video rounded-xl overflow-hidden">
-            <Image
-              src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=700"
-              alt="Malin i trädgården"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <div className="relative aspect-video rounded-xl overflow-hidden bg-[#c8dcc2]" />
         </div>
       </section>
 

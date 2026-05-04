@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from '@/components/ui/LogoutButton'
@@ -16,7 +17,7 @@ export default async function AccountPage() {
 
   const { data: orders } = await supabase
     .from('orders')
-    .select('*')
+    .select('*, order_items(*)')
     .eq('customer_id', user.id)
     .order('created_at', { ascending: false })
 
@@ -51,17 +52,41 @@ export default async function AccountPage() {
             <p className="text-stone-400 text-sm">Du har inte gjort några beställningar ännu.</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {orders.map(order => (
-              <div key={order.id} className="bg-white border border-stone-100 rounded-xl p-4 flex items-center justify-between">
-                <div>
-                  <p className="font-mono text-xs text-stone-400">{order.id.slice(0, 8)}…</p>
-                  <p className="text-sm font-medium text-stone-800 mt-0.5">{order.total} kr</p>
-                  <p className="text-xs text-stone-400">{new Date(order.created_at).toLocaleDateString('sv-SE')}</p>
+              <div key={order.id} className="bg-white border border-stone-100 rounded-xl overflow-hidden">
+                <div className="px-5 py-4 flex items-center justify-between border-b border-stone-50">
+                  <div className="flex items-center gap-4">
+                    <p className="font-mono text-xs text-stone-400">{order.id.slice(0, 8).toUpperCase()}</p>
+                    <p className="text-xs text-stone-400">{new Date(order.created_at).toLocaleDateString('sv-SE')}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-semibold text-stone-800">{order.total} kr</span>
+                    <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-stone-100 text-stone-600">
+                      {statusLabels[order.status] ?? order.status}
+                    </span>
+                  </div>
                 </div>
-                <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-stone-100 text-stone-600">
-                  {statusLabels[order.status] ?? order.status}
-                </span>
+                {order.order_items && order.order_items.length > 0 && (
+                  <div className="px-5 py-3 space-y-3">
+                    {order.order_items.map((item: any) => (
+                      <div key={item.id} className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-stone-100 shrink-0">
+                          {item.product_image ? (
+                            <Image src={item.product_image} alt={item.product_name} width={40} height={40} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full bg-stone-100" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-stone-700 truncate">{item.product_name}</p>
+                          <p className="text-xs text-stone-400">{item.quantity} st</p>
+                        </div>
+                        <p className="text-sm font-semibold text-stone-800 shrink-0">{item.price * item.quantity} kr</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

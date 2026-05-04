@@ -46,7 +46,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {product.stock > 0 && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-0 left-0 right-0 bg-white/95 text-stone-800 py-2.5 text-xs font-medium flex items-center justify-center gap-1.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-stone-100"
+            className="absolute bottom-0 left-0 right-0 bg-white/95 text-stone-800 py-2.5 text-xs font-medium flex items-center justify-center gap-1.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-stone-100 hover:bg-green-700 hover:text-white hover:border-green-700"
           >
             <ShoppingCart className="w-3.5 h-3.5" strokeWidth={1.75} />
             Lägg i varukorg
