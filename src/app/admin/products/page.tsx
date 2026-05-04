@@ -223,7 +223,7 @@ export default function AdminProductsPage() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
             <h2 className="text-xl font-bold text-stone-800 mb-5">{editing ? 'Redigera produkt' : 'Ny produkt'}</h2>
-            <form onSubmit={save} className="space-y-4">
+            <form onSubmit={e => { console.log('onSubmit form.images:', form.images); save(e) }} className="space-y-4">
 
               {/* Image uploader */}
               <div>
