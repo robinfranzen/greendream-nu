@@ -110,12 +110,15 @@ export default function AdminProductsPage() {
     }
 
     if (editing) {
-      await supabase.from('products').update(payload).eq('id', editing.id)
+      console.log('Saving images:', form.images)
+      const { error: updateErr } = await supabase.from('products').update(payload).eq('id', editing.id)
+      if (updateErr) console.error('Update error:', updateErr)
       // Delete removed images from Storage
       const removed = editing.images.filter(url => !form.images.includes(url))
       for (const url of removed) {
         const path = url.split('/storage/v1/object/public/products/')[1]
         if (path) {
+            console.log('Deleting storage path:', path)
           const { error } = await supabase.storage.from('products').remove([decodeURIComponent(path)])
           if (error) console.error('Storage delete error:', error, 'path:', path)
         }
