@@ -24,6 +24,8 @@ export default function AdminProductsPage() {
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const formRef = useRef(form)
+  formRef.current = form
 
   const supabase = createClient()
 
@@ -97,25 +99,26 @@ export default function AdminProductsPage() {
     e.preventDefault()
     setSaving(true)
 
+    const f = formRef.current
     const payload = {
-      name: form.name,
-      slug: form.slug || form.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-åäö]/g, ''),
-      description: form.description || null,
-      price: Number(form.price),
-      original_price: form.original_price ? Number(form.original_price) : null,
-      stock: Number(form.stock),
-      category_id: form.category_id || null,
-      images: form.images,
-      is_featured: form.is_featured,
-      is_new: form.is_new,
+      name: f.name,
+      slug: f.slug || f.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-åäö]/g, ''),
+      description: f.description || null,
+      price: Number(f.price),
+      original_price: f.original_price ? Number(f.original_price) : null,
+      stock: Number(f.stock),
+      category_id: f.category_id || null,
+      images: f.images,
+      is_featured: f.is_featured,
+      is_new: f.is_new,
     }
 
     if (editing) {
-      console.log('Saving images:', form.images)
+      console.log('Saving images:', f.images)
       const { error: updateErr } = await supabase.from('products').update(payload).eq('id', editing.id)
       if (updateErr) console.error('Update error:', updateErr)
       // Delete removed images from Storage
-      const removed = editing.images.filter(url => !form.images.includes(url))
+      const removed = editing.images.filter(url => !f.images.includes(url))
       for (const url of removed) {
         const path = url.split('/storage/v1/object/public/products/')[1]
         if (path) {
