@@ -45,6 +45,7 @@ export default function AdminProductsPage() {
   }
 
   function openEdit(p: ProductRow) {
+    console.log('Opening edit, product images:', p.images)
     setEditing(p)
     setForm({
       name: p.name,
@@ -54,7 +55,7 @@ export default function AdminProductsPage() {
       original_price: p.original_price ? String(p.original_price) : '',
       stock: String(p.stock),
       category_id: p.category_id,
-      images: p.images.length ? [...p.images] : [],
+      images: Array.isArray(p.images) ? [...p.images] : [],
       is_featured: p.is_featured,
       is_new: p.is_new,
     })
