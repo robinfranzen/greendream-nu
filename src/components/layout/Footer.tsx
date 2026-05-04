@@ -55,13 +55,13 @@ export default function Footer() {
 
         <div className="border-t border-stone-200 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-400">© {new Date().getFullYear()} GreenDream. Alla rättigheter förbehållna.</p>
-          <form className="flex gap-2">
+          <form className="flex gap-2 w-full sm:w-auto">
             <input
               type="email"
               placeholder="Prenumerera på nyhetsbrev"
-              className="px-3 py-2 bg-white border border-stone-200 rounded-lg text-xs text-stone-700 placeholder-stone-400 focus:outline-none focus:border-green-400 w-56"
+              className="px-3 py-2 bg-white border border-stone-200 rounded-lg text-xs text-stone-700 placeholder-stone-400 focus:outline-none focus:border-green-400 flex-1 sm:w-56"
             />
-            <button type="submit" className="px-4 py-2 bg-green-300 hover:bg-green-400 text-green-900 text-xs font-medium rounded-lg transition-colors">
+            <button type="submit" className="px-4 py-2 bg-green-300 hover:bg-green-400 text-green-900 text-xs font-medium rounded-lg transition-colors whitespace-nowrap">
               Prenumerera
             </button>
           </form>

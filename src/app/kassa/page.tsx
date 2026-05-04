@@ -140,7 +140,7 @@ export default function CheckoutPage() {
         <ArrowLeft className="w-4 h-4" strokeWidth={1.75} /> Tillbaka till varukorg
       </Link>
 
-      <div className="grid lg:grid-cols-5 gap-10">
+      <div className="grid lg:grid-cols-5 gap-8 lg:gap-10">
         {/* Form */}
         <div className="lg:col-span-3">
           {step === 'address' && (
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
                   <input required value={addr.address} onChange={e => setAddr(a => ({ ...a, address: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-green-400" placeholder="Storgatan 1" />
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-medium text-stone-700 mb-1">Postnummer *</label>
                     <input required value={addr.postal_code} onChange={e => setAddr(a => ({ ...a, postal_code: e.target.value }))}
@@ -238,7 +238,7 @@ export default function CheckoutPage() {
 
         {/* Order summary */}
         <div className="lg:col-span-2">
-          <div className="bg-white border border-stone-100 rounded-2xl p-5 sticky top-24">
+          <div className="bg-white border border-stone-100 rounded-2xl p-5 lg:sticky lg:top-24">
             <h2 className="font-semibold text-stone-800 mb-4">Din order</h2>
             <div className="space-y-3 mb-4">
               {items.map(item => (

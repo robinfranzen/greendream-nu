@@ -83,6 +83,25 @@ export default function ShopPage() {
         </select>
       </div>
 
+      {/* Mobile category pills */}
+      <div className="flex gap-2 overflow-x-auto pb-2 sm:hidden mb-6 -mx-1 px-1">
+        <button
+          onClick={() => setSelectedCategory(null)}
+          className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${!selectedCategory ? 'bg-green-700 text-white' : 'bg-white border border-stone-200 text-stone-600'}`}
+        >
+          Alla
+        </button>
+        {categories.map(cat => (
+          <button
+            key={cat.id}
+            onClick={() => setSelectedCategory(cat.slug === selectedCategory ? null : cat.slug)}
+            className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${cat.slug === selectedCategory ? 'bg-green-700 text-white' : 'bg-white border border-stone-200 text-stone-600'}`}
+          >
+            {cat.name}
+          </button>
+        ))}
+      </div>
+
       <div className="flex gap-8">
         <aside className="w-44 shrink-0 hidden sm:block">
           <div className="sticky top-20">

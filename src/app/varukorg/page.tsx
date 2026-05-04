@@ -25,7 +25,6 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <div className="text-6xl mb-5">🌿</div>
         <h1 className="text-2xl font-bold text-stone-800 mb-3">Din varukorg är tom</h1>
         <p className="text-stone-500 mb-8">Utforska vårt sortiment och lägg till dina favoritväxter.</p>
         <Link href="/shop" className="inline-flex items-center gap-2 px-6 py-3 bg-green-700 text-white rounded-xl font-medium hover:bg-green-600 transition-colors">
@@ -48,7 +47,7 @@ export default function CartPage() {
                 {item.product.images[0] ? (
                   <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-2xl">🌿</div>
+                  <div className="w-full h-full bg-[#e8f0e5]" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
@@ -78,7 +77,7 @@ export default function CartPage() {
 
         {/* Summary */}
         <div>
-          <div className="bg-white border border-stone-100 rounded-2xl p-6 sticky top-24">
+          <div className="bg-white border border-stone-100 rounded-2xl p-6 lg:sticky lg:top-24">
             <h2 className="font-bold text-stone-800 mb-5">Orderöversikt</h2>
             <div className="space-y-3 text-sm mb-5">
               <div className="flex justify-between text-stone-600">
